@@ -1,0 +1,28 @@
+version: '3.0'
+
+services: 
+
+  multitask:
+    container_name: multitask
+    image: mysql:5.7
+    command: 
+      --default-authentication-plugin=mysql_native_password
+      --disable-partition-engine-check
+    restart: always
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./dados:/var/lib/mysql
+      - ./config/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: Abc123!
+      MYSQL_DATABASE: multitask
+      MYSQL_USER: multitask
+      MYSQL_PASSWORD: Abc123!
+      MYSQL_ROOT_HOST: "%"
+    networks:
+      - multitask
+
+networks:
+  multitask:
+    driver: bridge
